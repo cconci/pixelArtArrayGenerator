@@ -12,6 +12,9 @@ namespace pixelArtArrayGenerator
 {
     public partial class Form1 : Form
     {
+        const String lastWorkspaceFile = "workspace_backup.pgn";
+        String currentWorkspaceFileNameAndPath = "";
+
         public Form1()
         {
             InitializeComponent();
@@ -26,11 +29,24 @@ namespace pixelArtArrayGenerator
             this.dataGridView_pixelGrid.ColumnHeadersVisible = true;
             this.dataGridView_pixelGrid.AllowUserToOrderColumns = false;
 
-
             this.dataGridView_pixelGrid.RowTemplate.Height = 30;
+            this.dataGridView_pixelGrid.RowHeadersWidth = 100;
 
             //generate grid
             this.toolStripButton_generateGrid_Click(sender,e);
+
+            //Load a last work space
+            this.setCurrentWorkspaceFromFile(lastWorkspaceFile);
+
+            //set up Save file Dialog
+            this.saveFileDialog1.Filter = "Pixel Gen| *.pgn";//| Text File | *.txt";
+            this.saveFileDialog1.Title = "Save Workspace";
+            this.saveFileDialog1.RestoreDirectory = true;
+
+            //open
+            this.openFileDialog1.Filter = "Pixel Gen| *.pgn|All files (*.*)|*.*";
+            this.openFileDialog1.Title = "Open Workspace";
+            this.openFileDialog1.RestoreDirectory = true;
         }
 
         private void toolStripButton_generateGrid_Click(object sender, EventArgs e)
@@ -38,23 +54,7 @@ namespace pixelArtArrayGenerator
             int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
             int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
 
-            this.dataGridView_pixelGrid.Rows.Clear();
-            this.dataGridView_pixelGrid.Columns.Clear();
-
-            for (int a = 0; a < sizeX; a++)
-            {
-                this.dataGridView_pixelGrid.Columns.Add(""+a, ""+a);
-                this.dataGridView_pixelGrid.Columns[this.dataGridView_pixelGrid.Columns.Count - 1].Width = 30;
-            }
-
-            for (int a = 0; a < sizeY; a++)
-            {
-                int rowIndex = this.dataGridView_pixelGrid.Rows.Add();
-                this.dataGridView_pixelGrid.Rows[this.dataGridView_pixelGrid.Rows.Count - 1].HeaderCell.Value = a+"";
-                
-            }
-
-            this.toolStripStatusLabel_sizeInBytes.Text = "RGB:" + (sizeX * sizeY * 3) + " WRGB:" + (sizeX * sizeY * 4);
+            GenericGridFunctions.InitPixelGrid(this.dataGridView_pixelGrid ,sizeX, sizeY);
 
         }
 
@@ -174,11 +174,98 @@ namespace pixelArtArrayGenerator
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //read from a file
+            this.openFileDialog1.FileName = "";
+            this.openFileDialog1.ShowDialog();
         }
 
         private void saveToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //write to a file
+            this.saveFileDialog1.FileName = "";
+            this.saveFileDialog1.ShowDialog();
+        }
+
+        private void saveCurrentWorkspace(String fileNameAndPath)
+        {
+            int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
+            int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
+
+            UserWorkspace nUserWorkspace = new UserWorkspace(sizeX,sizeY,this.dataGridView_pixelGrid);
+
+            nUserWorkspace.SaveWorkspace(fileNameAndPath);
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            this.saveCurrentWorkspace(lastWorkspaceFile);
+        }
+
+        private void updateGridSizeText()
+        {
+            this.toolStripStatusLabel_sizeInBytes.Text = "RGB:" + (this.dataGridView_pixelGrid.RowCount * this.dataGridView_pixelGrid.ColumnCount * 3) 
+                + " WRGB:" + (this.dataGridView_pixelGrid.RowCount * this.dataGridView_pixelGrid.ColumnCount * 4);
+        }
+
+        private void dataGridView_pixelGrid_ColumnAdded(object sender, DataGridViewColumnEventArgs e)
+        {
+            this.updateGridSizeText();
+        }
+
+        private void dataGridView_pixelGrid_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
+        {
+            this.updateGridSizeText();
+        }
+
+        private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            //load the file
+            if(this.openFileDialog1.FileName != "")
+            {
+                this.setCurrentWorkspaceFromFile(this.openFileDialog1.FileName);
+
+                //now we have a file for our workspace
+                this.currentWorkspaceFileNameAndPath = this.openFileDialog1.FileName;
+                this.saveToolStripMenuItem1.Enabled = true;
+                this.Text = "Pixel Art Array Generator (" + this.currentWorkspaceFileNameAndPath + ")";
+            }
+
+        }
+
+        private void saveFileDialog1_FileOk(object sender, CancelEventArgs e)
+        {
+            //save current to file
+            if (this.saveFileDialog1.FileName != "")
+            {
+                this.saveCurrentWorkspace(this.saveFileDialog1.FileName);
+
+                //now we have a file for our workspace
+                this.currentWorkspaceFileNameAndPath = this.saveFileDialog1.FileName;
+                this.saveToolStripMenuItem1.Enabled = true;
+                this.Text = "Pixel Art Array Generator ("+ this.currentWorkspaceFileNameAndPath + ")";
+            }
+            
+        }
+
+        private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            //save back to the open file
+            if(     currentWorkspaceFileNameAndPath != "" 
+                &&  this.saveToolStripMenuItem1.Enabled == true
+            )
+            {
+                this.saveCurrentWorkspace(currentWorkspaceFileNameAndPath);
+                
+            }
+            
+        }
+
+        private void setCurrentWorkspaceFromFile(String fileNameAndPath)
+        {
+            UserWorkspace lspace = UserWorkspace.LoadWorkspace(fileNameAndPath, this.dataGridView_pixelGrid);
+            this.toolStripTextBox_gridSizeX.Text = lspace.axisX + "";
+            this.toolStripTextBox_gridSizeY.Text = lspace.axisY + "";
+            this.dataGridView_pixelGrid.Invalidate();
+
         }
     }
 }
