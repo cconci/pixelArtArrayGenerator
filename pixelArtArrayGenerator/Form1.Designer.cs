@@ -37,6 +37,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +61,11 @@
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
-            this.saveToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.zigZagGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mirrorGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pixelGrid)).BeginInit();
@@ -133,26 +137,35 @@
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem1
+            // 
+            this.saveToolStripMenuItem1.Enabled = false;
+            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
+            this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
+            this.saveToolStripMenuItem1.Text = "Save";
+            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.saveToolStripMenuItem.Text = "Save As";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(137, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // exportToolStripMenuItem
@@ -161,7 +174,11 @@
             this.arraysToolStripMenuItem,
             this.toolStripSeparator1,
             this.rowModeToolStripMenuItem,
-            this.columnModeToolStripMenuItem});
+            this.columnModeToolStripMenuItem,
+            this.toolStripSeparator3,
+            this.zigZagGridToolStripMenuItem,
+            this.toolStripSeparator4,
+            this.mirrorGridToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.exportToolStripMenuItem.Text = "Export";
@@ -172,7 +189,7 @@
             this.cRGBMultiDimenToolStripMenuItem,
             this.cWRGBMultidimensionalToolStripMenuItem});
             this.arraysToolStripMenuItem.Name = "arraysToolStripMenuItem";
-            this.arraysToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.arraysToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.arraysToolStripMenuItem.Text = "Arrays";
             // 
             // cRGBMultiDimenToolStripMenuItem
@@ -192,12 +209,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
             // rowModeToolStripMenuItem
             // 
             this.rowModeToolStripMenuItem.Name = "rowModeToolStripMenuItem";
-            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.rowModeToolStripMenuItem.Text = "Row Mode";
             this.rowModeToolStripMenuItem.Click += new System.EventHandler(this.rowModeToolStripMenuItem_Click);
             // 
@@ -206,7 +223,7 @@
             this.columnModeToolStripMenuItem.Checked = true;
             this.columnModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.columnModeToolStripMenuItem.Name = "columnModeToolStripMenuItem";
-            this.columnModeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.columnModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.columnModeToolStripMenuItem.Text = "Column Mode";
             this.columnModeToolStripMenuItem.Click += new System.EventHandler(this.columnModeToolStripMenuItem_Click);
             // 
@@ -321,14 +338,29 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
-            // saveToolStripMenuItem1
+            // toolStripSeparator3
             // 
-            this.saveToolStripMenuItem1.Enabled = false;
-            this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
-            this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.saveToolStripMenuItem1.Text = "Save";
-            this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
+            // zigZagGridToolStripMenuItem
+            // 
+            this.zigZagGridToolStripMenuItem.Name = "zigZagGridToolStripMenuItem";
+            this.zigZagGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zigZagGridToolStripMenuItem.Text = "Zig-Zag Grid";
+            this.zigZagGridToolStripMenuItem.Click += new System.EventHandler(this.zigZagGridToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // mirrorGridToolStripMenuItem
+            // 
+            this.mirrorGridToolStripMenuItem.Name = "mirrorGridToolStripMenuItem";
+            this.mirrorGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mirrorGridToolStripMenuItem.Text = "Mirror Grid";
+            this.mirrorGridToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -391,6 +423,10 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog2;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ToolStripMenuItem zigZagGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
+        private System.Windows.Forms.ToolStripMenuItem mirrorGridToolStripMenuItem;
     }
 }
 

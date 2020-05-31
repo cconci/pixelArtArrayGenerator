@@ -22,7 +22,7 @@ namespace pixelArtArrayGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.toolStripStatusLabel_version.Text = "V01.00.00A";
+            this.toolStripStatusLabel_version.Text = "V01.01.00A";
             this.toolStripStatusLabel_author.Text = "cconci";
 
             this.dataGridView_pixelGrid.ColumnHeadersVisible = true;
@@ -142,29 +142,58 @@ namespace pixelArtArrayGenerator
         {
             List<Color> colours = new List<Color>();
 
+            int row = 1;
             
             if (this.rowModeToolStripMenuItem.Checked == true)
             {
                 for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
                 {
-                    for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+                    if(     this.zigZagGridToolStripMenuItem.Checked == true 
+                        &&  ((row%2) == 0)  //every second row will be the zag and needs to be reversed 
+                    )
                     {
-                        Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-
-                        colours.Add(cellColour);
+                        for (int a = (this.dataGridView_pixelGrid.ColumnCount-1); a >= 0 ; a--)
+                        {
+                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
+                            colours.Add(cellColour);
+                        }
                     }
+                    else
+                    {
+                        for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+                        {
+                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
+                            colours.Add(cellColour);
+                        }
+                    }
+
+                    row++;
                 }
             }
             else if (this.columnModeToolStripMenuItem.Checked == true)
             {
                 for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++) 
                 {
-                    for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                    if (    this.zigZagGridToolStripMenuItem.Checked == true
+                        &&  ((row % 2) == 0)  //every second row will be the zag and needs to be reversed 
+                    )
                     {
-                        Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-
-                        colours.Add(cellColour);
+                        for (int b = (this.dataGridView_pixelGrid.RowCount-1); b >= 0 ; b--)
+                        {
+                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
+                            colours.Add(cellColour);
+                        }
                     }
+                    else
+                    {
+                        for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                        {
+                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
+                            colours.Add(cellColour);
+                        }
+                    }
+
+                    row++;
                 }
             }
 
@@ -266,6 +295,30 @@ namespace pixelArtArrayGenerator
             this.toolStripTextBox_gridSizeY.Text = lspace.axisY + "";
             this.dataGridView_pixelGrid.Invalidate();
 
+        }
+
+        private void zigZagGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.zigZagGridToolStripMenuItem.Checked == true)
+            {
+                this.zigZagGridToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                this.zigZagGridToolStripMenuItem.Checked = true;
+            }
+        }
+
+        private void mirrorGridToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.mirrorGridToolStripMenuItem.Checked == true)
+            {
+                this.mirrorGridToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                this.mirrorGridToolStripMenuItem.Checked = true;
+            }
         }
     }
 }
