@@ -48,6 +48,10 @@
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
             this.rowModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.columnModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.zigZagGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.mirrorGridXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView_pixelGrid = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -62,10 +66,7 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
-            this.zigZagGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
-            this.mirrorGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mirrorGridYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pixelGrid)).BeginInit();
@@ -178,7 +179,8 @@
             this.toolStripSeparator3,
             this.zigZagGridToolStripMenuItem,
             this.toolStripSeparator4,
-            this.mirrorGridToolStripMenuItem});
+            this.mirrorGridXToolStripMenuItem,
+            this.mirrorGridYToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(53, 20);
             this.exportToolStripMenuItem.Text = "Export";
@@ -226,6 +228,30 @@
             this.columnModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.columnModeToolStripMenuItem.Text = "Column Mode";
             this.columnModeToolStripMenuItem.Click += new System.EventHandler(this.columnModeToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            // 
+            // zigZagGridToolStripMenuItem
+            // 
+            this.zigZagGridToolStripMenuItem.Name = "zigZagGridToolStripMenuItem";
+            this.zigZagGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zigZagGridToolStripMenuItem.Text = "Zig-Zag Grid";
+            this.zigZagGridToolStripMenuItem.Click += new System.EventHandler(this.zigZagGridToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            // 
+            // mirrorGridXToolStripMenuItem
+            // 
+            this.mirrorGridXToolStripMenuItem.Name = "mirrorGridXToolStripMenuItem";
+            this.mirrorGridXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mirrorGridXToolStripMenuItem.Text = "Mirror Grid X";
+            this.mirrorGridXToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridToolStripMenuItem_Click);
             // 
             // dataGridView_pixelGrid
             // 
@@ -338,29 +364,12 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
-            // toolStripSeparator3
+            // mirrorGridYToolStripMenuItem
             // 
-            this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
-            // 
-            // zigZagGridToolStripMenuItem
-            // 
-            this.zigZagGridToolStripMenuItem.Name = "zigZagGridToolStripMenuItem";
-            this.zigZagGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.zigZagGridToolStripMenuItem.Text = "Zig-Zag Grid";
-            this.zigZagGridToolStripMenuItem.Click += new System.EventHandler(this.zigZagGridToolStripMenuItem_Click);
-            // 
-            // toolStripSeparator4
-            // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
-            // 
-            // mirrorGridToolStripMenuItem
-            // 
-            this.mirrorGridToolStripMenuItem.Name = "mirrorGridToolStripMenuItem";
-            this.mirrorGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mirrorGridToolStripMenuItem.Text = "Mirror Grid";
-            this.mirrorGridToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridToolStripMenuItem_Click);
+            this.mirrorGridYToolStripMenuItem.Name = "mirrorGridYToolStripMenuItem";
+            this.mirrorGridYToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mirrorGridYToolStripMenuItem.Text = "Mirror Grid Y";
+            this.mirrorGridYToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridYToolStripMenuItem_Click);
             // 
             // Form1
             // 
@@ -426,7 +435,8 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
         private System.Windows.Forms.ToolStripMenuItem zigZagGridToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
-        private System.Windows.Forms.ToolStripMenuItem mirrorGridToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mirrorGridXToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mirrorGridYToolStripMenuItem;
     }
 }
 

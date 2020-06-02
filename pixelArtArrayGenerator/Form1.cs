@@ -22,7 +22,7 @@ namespace pixelArtArrayGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.toolStripStatusLabel_version.Text = "V01.01.00A";
+            this.toolStripStatusLabel_version.Text = "V01.02.00A";
             this.toolStripStatusLabel_author.Text = "cconci";
 
             this.dataGridView_pixelGrid.ColumnHeadersVisible = true;
@@ -33,7 +33,7 @@ namespace pixelArtArrayGenerator
             this.dataGridView_pixelGrid.RowHeadersWidth = 100;
 
             //generate grid
-            this.toolStripButton_generateGrid_Click(sender,e);
+            this.toolStripButton_generateGrid_Click(sender, e);
 
             //Load a last work space
             this.setCurrentWorkspaceFromFile(lastWorkspaceFile);
@@ -47,6 +47,10 @@ namespace pixelArtArrayGenerator
             this.openFileDialog1.Filter = "Pixel Gen| *.pgn|All files (*.*)|*.*";
             this.openFileDialog1.Title = "Open Workspace";
             this.openFileDialog1.RestoreDirectory = true;
+
+            //Menu - stop from closing on click
+            this.exportToolStripMenuItem.DropDown.Closing += OnToolStripDropDownClosing;
+
         }
 
         private void toolStripButton_generateGrid_Click(object sender, EventArgs e)
@@ -54,7 +58,7 @@ namespace pixelArtArrayGenerator
             int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
             int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
 
-            GenericGridFunctions.InitPixelGrid(this.dataGridView_pixelGrid ,sizeX, sizeY);
+            GenericGridFunctions.InitPixelGrid(this.dataGridView_pixelGrid, sizeX, sizeY);
 
         }
 
@@ -111,7 +115,7 @@ namespace pixelArtArrayGenerator
 
             for (int a = 0; a < enteredColours.Count; a++)
             {
-                arrayDataString += "{"+ enteredColours[a].R+ ","+ enteredColours[a].G + ","+ enteredColours[a].B + "},\n";
+                arrayDataString += "{" + enteredColours[a].R + "," + enteredColours[a].G + "," + enteredColours[a].B + "},\n";
             }
 
             arrayDataString += "};\n";
@@ -143,61 +147,152 @@ namespace pixelArtArrayGenerator
             List<Color> colours = new List<Color>();
 
             int row = 1;
-            
+
             if (this.rowModeToolStripMenuItem.Checked == true)
             {
-                for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                if (this.mirrorGridXToolStripMenuItem.Checked == true)
                 {
-                    if(     this.zigZagGridToolStripMenuItem.Checked == true 
-                        &&  ((row%2) == 0)  //every second row will be the zag and needs to be reversed 
-                    )
+                    for (int b = (this.dataGridView_pixelGrid.RowCount -1); b >= 0; b--)
                     {
-                        for (int a = (this.dataGridView_pixelGrid.ColumnCount-1); a >= 0 ; a--)
-                        {
-                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-                            colours.Add(cellColour);
-                        }
-                    }
-                    else
-                    {
-                        for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
-                        {
-                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-                            colours.Add(cellColour);
-                        }
-                    }
+                        addToListRows(ref colours, b, row);
 
-                    row++;
+                        row++;
+                    }
+                }
+                else
+                {
+                    for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                    {
+                        addToListRows(ref colours, b, row);
+
+                        row++;
+                    }
                 }
             }
             else if (this.columnModeToolStripMenuItem.Checked == true)
             {
-                for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++) 
+                if (this.mirrorGridYToolStripMenuItem.Checked == true)
                 {
-                    if (    this.zigZagGridToolStripMenuItem.Checked == true
-                        &&  ((row % 2) == 0)  //every second row will be the zag and needs to be reversed 
-                    )
+                    for (int a = (this.dataGridView_pixelGrid.ColumnCount - 1); a >= 0 ; a--)
                     {
-                        for (int b = (this.dataGridView_pixelGrid.RowCount-1); b >= 0 ; b--)
-                        {
-                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-                            colours.Add(cellColour);
-                        }
-                    }
-                    else
-                    {
-                        for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
-                        {
-                            Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor;
-                            colours.Add(cellColour);
-                        }
-                    }
+                        addToListColoumns(ref colours, a, row);
 
-                    row++;
+                        row++;
+                    }
                 }
+                else
+                {
+                    for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+                    {
+                        addToListColoumns(ref colours, a, row);
+
+                        row++;
+                    }
+                }
+                
             }
 
             return colours;
+        }
+
+        private void addToListRows(ref List<Color> colours, int rowIndex, int currentRow)
+        {
+            if (this.zigZagGridToolStripMenuItem.Checked == true
+                && ((currentRow % 2) == 0)  //every second row will be the zag and needs to be reversed 
+)
+            {
+                if (this.mirrorGridYToolStripMenuItem.Checked == true)
+                {
+                    addToListGridColourRowColLineBaseLeftRight(ref colours, rowIndex, this.dataGridView_pixelGrid.ColumnCount);
+                }
+                else
+                {
+                    addToListGridColourRowColLineMirrorRightLeft(ref colours, rowIndex, this.dataGridView_pixelGrid.ColumnCount);
+                }
+
+            }
+            else
+            {
+                if (this.mirrorGridYToolStripMenuItem.Checked == true)
+                {
+                    addToListGridColourRowColLineMirrorRightLeft(ref colours, rowIndex, this.dataGridView_pixelGrid.ColumnCount);
+                }
+                else
+                {
+                    addToListGridColourRowColLineBaseLeftRight(ref colours, rowIndex, this.dataGridView_pixelGrid.ColumnCount);
+                }
+
+            }
+        }
+
+        private void addToListColoumns(ref List<Color> colours,int colIndex,int currentRow)
+        {
+            if (this.zigZagGridToolStripMenuItem.Checked == true
+                        && ((currentRow % 2) == 0)  //every second row will be the zag and needs to be reversed 
+                    )
+            {
+                if (this.mirrorGridXToolStripMenuItem.Checked == true)
+                {
+                    addToListGridColourColRowLineBaseUpDown(ref colours, colIndex, this.dataGridView_pixelGrid.RowCount);
+                }
+                else
+                {
+                    addToListGridColourColRowLineMirrorDownUp(ref colours, colIndex, this.dataGridView_pixelGrid.RowCount);
+                }
+
+            }
+            else
+            {
+                if (this.mirrorGridXToolStripMenuItem.Checked == true)
+                {
+                    addToListGridColourColRowLineMirrorDownUp(ref colours, colIndex, this.dataGridView_pixelGrid.RowCount);
+                }
+                else
+                {
+                    addToListGridColourColRowLineBaseUpDown(ref colours, colIndex, this.dataGridView_pixelGrid.RowCount);
+                }
+
+            }
+        }
+
+        private void addToListGridColourRowColLineBaseLeftRight(ref List<Color> colours, int rowIndex, int colCount)
+        {
+            //Col Row is going left/right
+            for (int a = 0; a < colCount; a++)
+            {
+                Color cellColour = this.dataGridView_pixelGrid.Rows[rowIndex].Cells[a].Style.BackColor;
+                colours.Add(cellColour);
+            }
+        }
+
+        private void addToListGridColourRowColLineMirrorRightLeft(ref List<Color> colours, int colIndex, int colCount)
+        {
+            //Col Row is going right/left
+            for (int a = (colCount - 1); a >= 0; a--)
+            {
+                Color cellColour = this.dataGridView_pixelGrid.Rows[colIndex].Cells[a].Style.BackColor;
+                colours.Add(cellColour);
+            }
+        }
+
+        private void addToListGridColourColRowLineBaseUpDown(ref List<Color> colours,int colIndex, int rowCount)
+        {
+            //Col Row is going up/down
+            for (int b = 0; b < rowCount; b++)
+            {
+                Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[colIndex].Style.BackColor;
+                colours.Add(cellColour);
+            }
+        }
+
+        private void addToListGridColourColRowLineMirrorDownUp(ref List<Color> colours, int colIndex, int rowCount)
+        {
+            //Col Row is going down/up
+            for (int b = (rowCount - 1); b >= 0; b--)
+            {
+                Color cellColour = this.dataGridView_pixelGrid.Rows[b].Cells[colIndex].Style.BackColor;
+                colours.Add(cellColour);
+            }
         }
 
         private void loadToolStripMenuItem_Click(object sender, EventArgs e)
@@ -219,7 +314,7 @@ namespace pixelArtArrayGenerator
             int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
             int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
 
-            UserWorkspace nUserWorkspace = new UserWorkspace(sizeX,sizeY,this.dataGridView_pixelGrid);
+            UserWorkspace nUserWorkspace = new UserWorkspace(sizeX, sizeY, this.dataGridView_pixelGrid);
 
             nUserWorkspace.SaveWorkspace(fileNameAndPath);
         }
@@ -231,7 +326,7 @@ namespace pixelArtArrayGenerator
 
         private void updateGridSizeText()
         {
-            this.toolStripStatusLabel_sizeInBytes.Text = "RGB:" + (this.dataGridView_pixelGrid.RowCount * this.dataGridView_pixelGrid.ColumnCount * 3) 
+            this.toolStripStatusLabel_sizeInBytes.Text = "RGB:" + (this.dataGridView_pixelGrid.RowCount * this.dataGridView_pixelGrid.ColumnCount * 3)
                 + " WRGB:" + (this.dataGridView_pixelGrid.RowCount * this.dataGridView_pixelGrid.ColumnCount * 4);
         }
 
@@ -248,7 +343,7 @@ namespace pixelArtArrayGenerator
         private void openFileDialog1_FileOk(object sender, CancelEventArgs e)
         {
             //load the file
-            if(this.openFileDialog1.FileName != "")
+            if (this.openFileDialog1.FileName != "")
             {
                 this.setCurrentWorkspaceFromFile(this.openFileDialog1.FileName);
 
@@ -270,22 +365,22 @@ namespace pixelArtArrayGenerator
                 //now we have a file for our workspace
                 this.currentWorkspaceFileNameAndPath = this.saveFileDialog1.FileName;
                 this.saveToolStripMenuItem1.Enabled = true;
-                this.Text = "Pixel Art Array Generator ("+ this.currentWorkspaceFileNameAndPath + ")";
+                this.Text = "Pixel Art Array Generator (" + this.currentWorkspaceFileNameAndPath + ")";
             }
-            
+
         }
 
         private void saveToolStripMenuItem1_Click(object sender, EventArgs e)
         {
             //save back to the open file
-            if(     currentWorkspaceFileNameAndPath != "" 
-                &&  this.saveToolStripMenuItem1.Enabled == true
+            if (currentWorkspaceFileNameAndPath != ""
+                && this.saveToolStripMenuItem1.Enabled == true
             )
             {
                 this.saveCurrentWorkspace(currentWorkspaceFileNameAndPath);
-                
+
             }
-            
+
         }
 
         private void setCurrentWorkspaceFromFile(String fileNameAndPath)
@@ -311,14 +406,39 @@ namespace pixelArtArrayGenerator
 
         private void mirrorGridToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (this.mirrorGridToolStripMenuItem.Checked == true)
+            if (this.mirrorGridXToolStripMenuItem.Checked == true)
             {
-                this.mirrorGridToolStripMenuItem.Checked = false;
+                this.mirrorGridXToolStripMenuItem.Checked = false;
             }
             else
             {
-                this.mirrorGridToolStripMenuItem.Checked = true;
+                this.mirrorGridXToolStripMenuItem.Checked = true;
             }
+        }
+
+        private void mirrorGridYToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (this.mirrorGridYToolStripMenuItem.Checked == true)
+            {
+                this.mirrorGridYToolStripMenuItem.Checked = false;
+            }
+            else
+            {
+                this.mirrorGridYToolStripMenuItem.Checked = true;
+            }
+
+        }
+
+        private void OnToolStripDropDownClosing(object sender, ToolStripDropDownClosingEventArgs e)
+        {
+            ToolStripDropDown tToolStripDropDown = sender as ToolStripDropDown;
+            //use pointer location to see if the user is inside the menu item
+            Point p = tToolStripDropDown.PointToClient(MousePosition);
+            if (tToolStripDropDown.DisplayRectangle.Contains(p))
+            {
+                e.Cancel = true;  // stop the auto closing on click
+            }
+                
         }
     }
 }
