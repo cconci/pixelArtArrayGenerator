@@ -52,6 +52,7 @@
             this.zigZagGridToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.mirrorGridXToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mirrorGridYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataGridView_pixelGrid = new System.Windows.Forms.DataGridView();
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
@@ -66,7 +67,6 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
-            this.mirrorGridYToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pixelGrid)).BeginInit();
@@ -166,8 +166,9 @@
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // exportToolStripMenuItem
             // 
@@ -191,7 +192,7 @@
             this.cRGBMultiDimenToolStripMenuItem,
             this.cWRGBMultidimensionalToolStripMenuItem});
             this.arraysToolStripMenuItem.Name = "arraysToolStripMenuItem";
-            this.arraysToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.arraysToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.arraysToolStripMenuItem.Text = "Arrays";
             // 
             // cRGBMultiDimenToolStripMenuItem
@@ -211,12 +212,12 @@
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(148, 6);
             // 
             // rowModeToolStripMenuItem
             // 
             this.rowModeToolStripMenuItem.Name = "rowModeToolStripMenuItem";
-            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.rowModeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.rowModeToolStripMenuItem.Text = "Row Mode";
             this.rowModeToolStripMenuItem.Click += new System.EventHandler(this.rowModeToolStripMenuItem_Click);
             // 
@@ -225,33 +226,40 @@
             this.columnModeToolStripMenuItem.Checked = true;
             this.columnModeToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
             this.columnModeToolStripMenuItem.Name = "columnModeToolStripMenuItem";
-            this.columnModeToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.columnModeToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.columnModeToolStripMenuItem.Text = "Column Mode";
             this.columnModeToolStripMenuItem.Click += new System.EventHandler(this.columnModeToolStripMenuItem_Click);
             // 
             // toolStripSeparator3
             // 
             this.toolStripSeparator3.Name = "toolStripSeparator3";
-            this.toolStripSeparator3.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator3.Size = new System.Drawing.Size(148, 6);
             // 
             // zigZagGridToolStripMenuItem
             // 
             this.zigZagGridToolStripMenuItem.Name = "zigZagGridToolStripMenuItem";
-            this.zigZagGridToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.zigZagGridToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.zigZagGridToolStripMenuItem.Text = "Zig-Zag Grid";
             this.zigZagGridToolStripMenuItem.Click += new System.EventHandler(this.zigZagGridToolStripMenuItem_Click);
             // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(177, 6);
+            this.toolStripSeparator4.Size = new System.Drawing.Size(148, 6);
             // 
             // mirrorGridXToolStripMenuItem
             // 
             this.mirrorGridXToolStripMenuItem.Name = "mirrorGridXToolStripMenuItem";
-            this.mirrorGridXToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.mirrorGridXToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
             this.mirrorGridXToolStripMenuItem.Text = "Mirror Grid X";
             this.mirrorGridXToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridToolStripMenuItem_Click);
+            // 
+            // mirrorGridYToolStripMenuItem
+            // 
+            this.mirrorGridYToolStripMenuItem.Name = "mirrorGridYToolStripMenuItem";
+            this.mirrorGridYToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.mirrorGridYToolStripMenuItem.Text = "Mirror Grid Y";
+            this.mirrorGridYToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridYToolStripMenuItem_Click);
             // 
             // dataGridView_pixelGrid
             // 
@@ -267,6 +275,7 @@
             this.dataGridView_pixelGrid.MultiSelect = false;
             this.dataGridView_pixelGrid.Name = "dataGridView_pixelGrid";
             this.dataGridView_pixelGrid.ReadOnly = true;
+            this.dataGridView_pixelGrid.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
             this.dataGridView_pixelGrid.ShowCellErrors = false;
             this.dataGridView_pixelGrid.ShowCellToolTips = false;
             this.dataGridView_pixelGrid.ShowEditingIcon = false;
@@ -274,6 +283,7 @@
             this.dataGridView_pixelGrid.Size = new System.Drawing.Size(760, 472);
             this.dataGridView_pixelGrid.TabIndex = 3;
             this.dataGridView_pixelGrid.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_pixelGrid_CellClick);
+            this.dataGridView_pixelGrid.CellMouseClick += new System.Windows.Forms.DataGridViewCellMouseEventHandler(this.dataGridView_pixelGrid_CellMouseClick);
             this.dataGridView_pixelGrid.ColumnAdded += new System.Windows.Forms.DataGridViewColumnEventHandler(this.dataGridView_pixelGrid_ColumnAdded);
             this.dataGridView_pixelGrid.RowsAdded += new System.Windows.Forms.DataGridViewRowsAddedEventHandler(this.dataGridView_pixelGrid_RowsAdded);
             // 
@@ -325,7 +335,7 @@
             this.toolStripButton_generateGrid.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_generateGrid.Name = "toolStripButton_generateGrid";
             this.toolStripButton_generateGrid.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_generateGrid.Text = "toolStripButton1";
+            this.toolStripButton_generateGrid.Text = "New Grid";
             this.toolStripButton_generateGrid.Click += new System.EventHandler(this.toolStripButton_generateGrid_Click);
             // 
             // toolStripLabel3
@@ -348,7 +358,7 @@
             this.toolStripButton_selectColour.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripButton_selectColour.Name = "toolStripButton_selectColour";
             this.toolStripButton_selectColour.Size = new System.Drawing.Size(23, 22);
-            this.toolStripButton_selectColour.Text = "toolStripButton1";
+            this.toolStripButton_selectColour.Text = "Select Colour";
             this.toolStripButton_selectColour.Click += new System.EventHandler(this.toolStripButton_selectColour_Click);
             // 
             // colorDialog1
@@ -363,13 +373,6 @@
             // saveFileDialog1
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
-            // 
-            // mirrorGridYToolStripMenuItem
-            // 
-            this.mirrorGridYToolStripMenuItem.Name = "mirrorGridYToolStripMenuItem";
-            this.mirrorGridYToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.mirrorGridYToolStripMenuItem.Text = "Mirror Grid Y";
-            this.mirrorGridYToolStripMenuItem.Click += new System.EventHandler(this.mirrorGridYToolStripMenuItem_Click);
             // 
             // Form1
             // 

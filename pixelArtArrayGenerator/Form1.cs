@@ -22,7 +22,7 @@ namespace pixelArtArrayGenerator
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            this.toolStripStatusLabel_version.Text = "V01.02.00A";
+            this.toolStripStatusLabel_version.Text = "V01.03.00A";
             this.toolStripStatusLabel_author.Text = "cconci";
 
             this.dataGridView_pixelGrid.ColumnHeadersVisible = true;
@@ -71,9 +71,22 @@ namespace pixelArtArrayGenerator
 
         private void dataGridView_pixelGrid_CellClick(object sender, DataGridViewCellEventArgs e)
         {
+            if (e.RowIndex < 0)
+            {
+                //error
+                return;
+            }
+
+            if (e.ColumnIndex < 0)
+            {
+                //error
+                return;
+            }
             this.dataGridView_pixelGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor = this.colorDialog1.Color;
 
             this.dataGridView_pixelGrid.ClearSelection();
+
+            System.Diagnostics.Debug.Print("dataGridView_pixelGrid_CellClick()");
         }
 
         private void rowModeToolStripMenuItem_Click(object sender, EventArgs e)
@@ -439,6 +452,26 @@ namespace pixelArtArrayGenerator
                 e.Cancel = true;  // stop the auto closing on click
             }
                 
+        }
+
+        private void dataGridView_pixelGrid_CellMouseClick(object sender, DataGridViewCellMouseEventArgs e)
+        {
+            //Right Click is  colour Picker
+            if (e.Button == MouseButtons.Right)
+            {
+                this.colorDialog1.Color = this.dataGridView_pixelGrid.Rows[e.RowIndex].Cells[e.ColumnIndex].Style.BackColor;
+
+                this.toolStripTextBox_selectedColour.BackColor = this.colorDialog1.Color;
+            }
+
+
+            System.Diagnostics.Debug.Print("dataGridView_pixelGrid_CellMouseClick()");
+        }
+
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //exit program 
+            this.Close();
         }
     }
 }
