@@ -28,5 +28,26 @@ namespace pixelArtArrayGenerator
 
             }
         }
+
+        public static DataGridView DataGridViewColAndRowDataCopy(DataGridView dataToCopy)
+        {
+            DataGridView nDataGridView = new DataGridView();
+
+            for (int a = 0; a < dataToCopy.ColumnCount; a++)
+            {
+                DataGridViewColumn nCol = (DataGridViewColumn)dataToCopy.Columns[a].Clone();
+
+                nDataGridView.Columns.Add(nCol);
+            }
+
+            for (int b = 0; b < dataToCopy.RowCount; b++)
+            {
+                DataGridViewRow nRow = (DataGridViewRow)dataToCopy.Rows[b].Clone();
+
+                nDataGridView.Rows.Add(nRow);
+            }
+
+            return nDataGridView;
+        }
     }
 }

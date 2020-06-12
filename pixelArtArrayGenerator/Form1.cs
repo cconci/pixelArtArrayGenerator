@@ -51,6 +51,8 @@ namespace pixelArtArrayGenerator
             //Menu - stop from closing on click
             this.exportToolStripMenuItem.DropDown.Closing += OnToolStripDropDownClosing;
 
+            //no selection 
+            this.dataGridView_pixelGrid.ClearSelection();
         }
 
         private void toolStripButton_generateGrid_Click(object sender, EventArgs e)
@@ -472,6 +474,89 @@ namespace pixelArtArrayGenerator
         {
             //exit program 
             this.Close();
+        }
+
+        private void toolStripButton_ShiftLeft_Click(object sender, EventArgs e)
+        {
+            //shift coloumn data left 1 coloumn
+            DataGridView shadowDgv = GenericGridFunctions.DataGridViewColAndRowDataCopy(this.dataGridView_pixelGrid);
+
+            for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+            {
+                for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                {
+                    if (a == (this.dataGridView_pixelGrid.ColumnCount - 1))
+                    {
+                        //get the first column data
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b].Cells[0].Style.BackColor;
+                    }
+                    else
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b].Cells[a + 1].Style.BackColor;
+                    }    
+                }
+            }
+        }
+
+        private void toolStripButton_ShiftRight_Click(object sender, EventArgs e)
+        {
+            DataGridView shadowDgv = GenericGridFunctions.DataGridViewColAndRowDataCopy(this.dataGridView_pixelGrid);
+
+            for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+            {
+                for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+                {
+                    if (a == 0)
+                    {
+                        //get the first column data
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b].Cells[(this.dataGridView_pixelGrid.ColumnCount-1)].Style.BackColor;
+                    }
+                    else
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b].Cells[a - 1].Style.BackColor;
+                    }
+                }
+            }
+        }
+
+        private void toolStripButton_ShiftUp_Click(object sender, EventArgs e)
+        {
+            DataGridView shadowDgv = GenericGridFunctions.DataGridViewColAndRowDataCopy(this.dataGridView_pixelGrid);
+
+            for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++) 
+            {
+                for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+                {
+                    if (b == (this.dataGridView_pixelGrid.RowCount-1))
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[0].Cells[a].Style.BackColor;
+                    }
+                    else
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b+1].Cells[a].Style.BackColor;
+                    }
+                }
+            }
+        }
+
+        private void toolStripButton_ShiftDown_Click(object sender, EventArgs e)
+        {
+            DataGridView shadowDgv = GenericGridFunctions.DataGridViewColAndRowDataCopy(this.dataGridView_pixelGrid);
+
+            for (int b = 0; b < this.dataGridView_pixelGrid.RowCount; b++)
+            {
+                for (int a = 0; a < this.dataGridView_pixelGrid.ColumnCount; a++)
+                {
+                    if (b == 0)
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[(this.dataGridView_pixelGrid.RowCount - 1)].Cells[a].Style.BackColor;
+                    }
+                    else
+                    {
+                        this.dataGridView_pixelGrid.Rows[b].Cells[a].Style.BackColor = shadowDgv.Rows[b - 1].Cells[a].Style.BackColor;
+                    }
+                }
+            }
         }
     }
 }

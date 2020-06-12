@@ -67,6 +67,12 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.saveFileDialog2 = new System.Windows.Forms.SaveFileDialog();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripLabel4 = new System.Windows.Forms.ToolStripLabel();
+            this.toolStripButton_ShiftLeft = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ShiftRight = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ShiftUp = new System.Windows.Forms.ToolStripButton();
+            this.toolStripButton_ShiftDown = new System.Windows.Forms.ToolStripButton();
             this.statusStrip.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView_pixelGrid)).BeginInit();
@@ -138,7 +144,7 @@
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
             this.loadToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.L)));
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
@@ -147,21 +153,21 @@
             this.saveToolStripMenuItem1.Enabled = false;
             this.saveToolStripMenuItem1.Name = "saveToolStripMenuItem1";
             this.saveToolStripMenuItem1.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
+            this.saveToolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem1.Text = "Save";
             this.saveToolStripMenuItem1.Click += new System.EventHandler(this.saveToolStripMenuItem1_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.saveToolStripMenuItem.Text = "Save As";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(137, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(177, 6);
             // 
             // exitToolStripMenuItem
             // 
@@ -271,7 +277,7 @@
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.dataGridView_pixelGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView_pixelGrid.Location = new System.Drawing.Point(12, 55);
+            this.dataGridView_pixelGrid.Location = new System.Drawing.Point(12, 57);
             this.dataGridView_pixelGrid.MultiSelect = false;
             this.dataGridView_pixelGrid.Name = "dataGridView_pixelGrid";
             this.dataGridView_pixelGrid.ReadOnly = true;
@@ -297,7 +303,13 @@
             this.toolStripButton_generateGrid,
             this.toolStripLabel3,
             this.toolStripTextBox_selectedColour,
-            this.toolStripButton_selectColour});
+            this.toolStripButton_selectColour,
+            this.toolStripSeparator5,
+            this.toolStripLabel4,
+            this.toolStripButton_ShiftLeft,
+            this.toolStripButton_ShiftRight,
+            this.toolStripButton_ShiftUp,
+            this.toolStripButton_ShiftDown});
             this.toolStrip1.Location = new System.Drawing.Point(0, 24);
             this.toolStrip1.Name = "toolStrip1";
             this.toolStrip1.Size = new System.Drawing.Size(784, 25);
@@ -374,6 +386,57 @@
             // 
             this.saveFileDialog1.FileOk += new System.ComponentModel.CancelEventHandler(this.saveFileDialog1_FileOk);
             // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripLabel4
+            // 
+            this.toolStripLabel4.Name = "toolStripLabel4";
+            this.toolStripLabel4.Size = new System.Drawing.Size(31, 22);
+            this.toolStripLabel4.Text = "Shift";
+            // 
+            // toolStripButton_ShiftLeft
+            // 
+            this.toolStripButton_ShiftLeft.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ShiftLeft.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ShiftLeft.Image")));
+            this.toolStripButton_ShiftLeft.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ShiftLeft.Name = "toolStripButton_ShiftLeft";
+            this.toolStripButton_ShiftLeft.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ShiftLeft.Text = "Shift Left";
+            this.toolStripButton_ShiftLeft.Click += new System.EventHandler(this.toolStripButton_ShiftLeft_Click);
+            // 
+            // toolStripButton_ShiftRight
+            // 
+            this.toolStripButton_ShiftRight.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ShiftRight.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ShiftRight.Image")));
+            this.toolStripButton_ShiftRight.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ShiftRight.Name = "toolStripButton_ShiftRight";
+            this.toolStripButton_ShiftRight.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ShiftRight.Text = "Shift Right";
+            this.toolStripButton_ShiftRight.Click += new System.EventHandler(this.toolStripButton_ShiftRight_Click);
+            // 
+            // toolStripButton_ShiftUp
+            // 
+            this.toolStripButton_ShiftUp.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ShiftUp.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ShiftUp.Image")));
+            this.toolStripButton_ShiftUp.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ShiftUp.Name = "toolStripButton_ShiftUp";
+            this.toolStripButton_ShiftUp.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ShiftUp.Text = "Shift Up";
+            this.toolStripButton_ShiftUp.Click += new System.EventHandler(this.toolStripButton_ShiftUp_Click);
+            // 
+            // toolStripButton_ShiftDown
+            // 
+            this.toolStripButton_ShiftDown.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.toolStripButton_ShiftDown.Image = ((System.Drawing.Image)(resources.GetObject("toolStripButton_ShiftDown.Image")));
+            this.toolStripButton_ShiftDown.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripButton_ShiftDown.Name = "toolStripButton_ShiftDown";
+            this.toolStripButton_ShiftDown.Size = new System.Drawing.Size(23, 22);
+            this.toolStripButton_ShiftDown.Text = "Shift Down";
+            this.toolStripButton_ShiftDown.Click += new System.EventHandler(this.toolStripButton_ShiftDown_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -440,6 +503,12 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator4;
         private System.Windows.Forms.ToolStripMenuItem mirrorGridXToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mirrorGridYToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripLabel toolStripLabel4;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ShiftLeft;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ShiftRight;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ShiftUp;
+        private System.Windows.Forms.ToolStripButton toolStripButton_ShiftDown;
     }
 }
 

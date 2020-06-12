@@ -105,6 +105,9 @@ namespace pixelArtArrayGenerator
             dgv.Invalidate();
             dgv.Refresh();
 
+            //no selection 
+            dgv.ClearSelection();
+
             UserWorkspace nWorkspace = new UserWorkspace(sizeX, sizeY,dgv);
 
             return nWorkspace;
