@@ -57,10 +57,17 @@ namespace pixelArtArrayGenerator
 
         private void toolStripButton_generateGrid_Click(object sender, EventArgs e)
         {
-            int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
-            int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
+            try
+            {
+                int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
+                int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
 
-            GenericGridFunctions.InitPixelGrid(this.dataGridView_pixelGrid, sizeX, sizeY);
+                GenericGridFunctions.InitPixelGrid(this.dataGridView_pixelGrid, sizeX, sizeY);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+            }
 
         }
 
@@ -326,12 +333,19 @@ namespace pixelArtArrayGenerator
 
         private void saveCurrentWorkspace(String fileNameAndPath)
         {
-            int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
-            int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
+            try
+            {
+                int sizeX = System.Convert.ToInt32(this.toolStripTextBox_gridSizeX.Text);
+                int sizeY = System.Convert.ToInt32(this.toolStripTextBox_gridSizeY.Text);
 
-            UserWorkspace nUserWorkspace = new UserWorkspace(sizeX, sizeY, this.dataGridView_pixelGrid);
+                UserWorkspace nUserWorkspace = new UserWorkspace(sizeX, sizeY, this.dataGridView_pixelGrid);
 
-            nUserWorkspace.SaveWorkspace(fileNameAndPath);
+                nUserWorkspace.SaveWorkspace(fileNameAndPath);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.Print(ex.ToString());
+            }
         }
 
         private void Form1_FormClosing(object sender, FormClosingEventArgs e)
